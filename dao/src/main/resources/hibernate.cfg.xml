@@ -9,6 +9,10 @@
         <property name="connection.username">pilot</property>
         <property name="connection.password">1</property>
         
+        <mapping class="ru.pilot.tracks.dto.DeviceDto"/>
+        <mapping class="ru.pilot.tracks.dto.PointDto"/>
+        <mapping class="ru.pilot.tracks.dto.StatDto"/>
+        <mapping class="ru.pilot.tracks.dto.TrackDto"/>
         <mapping class="ru.pilot.tracks.dto.UserDto"/>
     </session-factory>
 </hibernate-configuration>

@@ -5,10 +5,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "tuser")
-public class UserDto {
+public class UserDto implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
     @Id
     @Column(name = "userId")
     private Long userId;

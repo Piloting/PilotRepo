@@ -6,17 +6,19 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "tDevice")
-public class DeviceDto {
+public class DeviceDto implements Serializable {
+  private static final long serialVersionUID = 1L;
   
   @Id
-  @Column(name = "deviceid")
-  private String deviceid;
+  @Column(name = "deviceId")
+  private Long deviceId;
 
   @ManyToOne
-  @JoinColumn(name = "userid")
+  @JoinColumn(name = "userId")
   private UserDto user;
 
   @Column(name = "brief")
@@ -26,11 +28,11 @@ public class DeviceDto {
   private String comment;
 
 
-  public String getDeviceid() {
-    return deviceid;
+  public Long getDeviceId() {
+    return deviceId;
   }
-  public void setDeviceid(String deviceid) {
-    this.deviceid = deviceid;
+  public void setDeviceId(Long deviceId) {
+    this.deviceId = deviceId;
   }
   public UserDto getUser() {
     return user;
@@ -54,7 +56,7 @@ public class DeviceDto {
 
   @Override
   public String toString() {
-    return "Device[id="+deviceid+
+    return "Device[id="+ deviceId +
             ", userId="+user.getUserId()+
             ", brief="+brief+
             ", comment="+comment+

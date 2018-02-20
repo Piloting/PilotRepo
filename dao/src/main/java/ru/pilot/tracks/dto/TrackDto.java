@@ -6,18 +6,20 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "tTrack")
-public class TrackDto {
-  
+public class TrackDto implements Serializable {
+  private static final long serialVersionUID = 1L;
+    
   @Id
-  @Column(name = "trackid")
-  private String trackid;
+  @Column(name = "trackId")
+  private Long trackId;
   
   @ManyToOne
-  @JoinColumn(name = "deviceid")
+  @JoinColumn(name = "deviceId")
   private DeviceDto device;
 
   @Column(name = "name")
@@ -26,23 +28,23 @@ public class TrackDto {
   @Column(name = "comment")
   private String comment;
   
-  @Column(name = "datestart")
-  private Date datestart;
+  @Column(name = "dateStart")
+  private Date dateStart;
   
-  @Column(name = "datend")
-  private Date datend;
+  @Column(name = "dateEnd")
+  private Date dateEnd;
 
 
-  public String getTrackid() {
-    return trackid;
+  public Long getTrackId() {
+    return trackId;
   }
-  public void setTrackid(String trackid) {
-    this.trackid = trackid;
+  public void setTrackId(Long trackid) {
+    this.trackId = trackId;
   }
   public DeviceDto getDevice() {
     return device;
   }
-  public void setDeviceid(DeviceDto device) {
+  public void setDevice(DeviceDto device) {
     this.device = device;
   }
   public String getName() {
@@ -57,27 +59,27 @@ public class TrackDto {
   public void setComment(String comment) {
     this.comment = comment;
   }
-  public Date getDatestart() {
-    return datestart;
+  public Date getDateStart() {
+    return dateStart;
   }
-  public void setDatestart(Date datestart) {
-    this.datestart = datestart;
+  public void setDateStart(Date dateStart) {
+    this.dateStart = dateStart;
   }
-  public Date getDatend() {
-    return datend;
+  public Date getDateEnd() {
+    return dateEnd;
   }
-  public void setDatend(java.sql.Timestamp datend) {
-    this.datend = datend;
+  public void setDateEnd(Date dateEnd) {
+    this.dateEnd = dateEnd;
   }
 
   @Override
   public String toString() {
-    return "Point[trackId=" + trackid +
-            ", deviceid=" + device.getDeviceid() +
+    return "Point[trackId=" + trackId +
+            ", deviceid=" + device.getDeviceId() +
             ", name=" + name +
             ", comment=" + comment +
-            ", datestart=" + datestart +
-            ", datend=" + datend +
+            ", datestart=" + dateStart +
+            ", datend=" + dateEnd +
             "]";
   }
 

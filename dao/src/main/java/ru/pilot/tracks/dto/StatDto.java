@@ -2,41 +2,49 @@ package ru.pilot.tracks.dto;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "tStat")
-public class StatDto {
+public class StatDto implements Serializable {
+  private static final long serialVersionUID = 1L;
+    
+  @Id
+  @Column(name = "statId")
+  private Long statId;
   
   @OneToOne
-  @JoinColumn(name = "trackid")
+  @JoinColumn(name = "trackId")
   private TrackDto track;
 
   @Column(name = "len")
-  private String len;
+  private BigDecimal len;
 
-  @Column(name = "time")
-  private String time;
-
-  @Column(name = "avgspeed")
-  private String avgspeed;
-
-  @Column(name = "maxspeed")
-  private String maxspeed;
-
-  @Column(name = "stopcount")
-  private String stopcount;
+  @Column(name = "Time")
+  private Long time;
   
-  @Column(name = "maxheight")
-  private String maxheight;
+  @Column(name = "moveTime")
+  private Long moveTime;
   
-  @Column(name = "minheight")
-  private String minheight;
+  @Column(name = "avgSpeed")
+  private BigDecimal avgSpeed;
 
-  @Column(name = "movetime")
-  private String movetime;
+  @Column(name = "maxSpeed")
+  private BigDecimal maxSpeed;
+
+  @Column(name = "stopCount")
+  private Long stopCount;
+  
+  @Column(name = "maxHeight")
+  private Long maxHeight;
+  
+  @Column(name = "minHeight")
+  private Long minHeight;
   
   public TrackDto getTrack() {
     return track;
@@ -44,66 +52,75 @@ public class StatDto {
   public void setTrack(TrackDto trackid) {
     this.track = track;
   }
-  public String getLen() {
+  public BigDecimal getLen() {
     return len;
   }
-  public void setLen(String len) {
+  public void setLen(BigDecimal len) {
     this.len = len;
   }
-  public String getTime() {
+  public Long getTime() {
     return time;
   }
-  public void setTime(String time) {
-    this.time = time;
+  public void setTime(Long  Time) {
+    this.time = Time;
   }
-  public String getAvgspeed() {
-    return avgspeed;
+  public BigDecimal getAvgSpeed() {
+    return avgSpeed;
   }
-  public void setAvgspeed(String avgspeed) {
-    this.avgspeed = avgspeed;
+  public void setAvgSpeed(BigDecimal avgSpeed) {
+    this.avgSpeed = avgSpeed;
   }
-  public String getMaxspeed() {
-    return maxspeed;
+  public BigDecimal getMaxSpeed() {
+    return maxSpeed;
   }
-  public void setMaxspeed(String maxspeed) {
-    this.maxspeed = maxspeed;
+  public void setMaxSpeed(BigDecimal maxSpeed) {
+    this.maxSpeed = maxSpeed;
   }
-  public String getStopcount() {
-    return stopcount;
+  public Long getStopcount() {
+    return stopCount;
   }
-  public void setStopcount(String stopcount) {
-    this.stopcount = stopcount;
+  public void setStopcount(Long stopCount) {
+    this.stopCount = stopCount;
   }
-  public String getMaxheight() {
-    return maxheight;
+  public Long getMaxHeight() {
+    return maxHeight;
   }
-  public void setMaxheight(String maxheight) {
-    this.maxheight = maxheight;
+  public void setMaxHeight(Long maxHeight) {
+    this.maxHeight = maxHeight;
   }
-  public String getMinheight() {
-    return minheight;
+  public Long getMinHeight() {
+    return minHeight;
   }
-  public void setMinheight(String minheight) {
-    this.minheight = minheight;
+  public void setMinHeight(Long minHeight) {
+    this.minHeight = minHeight;
   }
-  public String getMovetime() {
-    return movetime;
+  public Long getMoveTime() {
+    return moveTime;
   }
-  public void setMovetime(String movetime) {
-    this.movetime = movetime;
+  public void setMoveTime(Long moveTime) {
+    this.moveTime = moveTime;
+  }
+  
+  public Long getStatId() {
+    return statId;
+  }
+
+  public void setStatId(Long statId) {
+    this.statId = statId;
   }
   
   @Override
   public String toString() {
-    return "Point[trackId=" + track.getTrackid() +
+    return "Point[statId=" + statId +
+            "trackId=" + track.getTrackId() +
             ", len=" + len +
             ", time=" + time +
-            ", avgspeed=" + avgspeed +
-            ", maxspeed=" + maxspeed +
-            ", stopcount=" + stopcount +
-            ", maxheight=" + maxheight +
-            ", minheight=" + minheight +
-            ", movetime=" + movetime +
+            ", avgSpeed=" + avgSpeed +
+            ", maxSpeed=" + maxSpeed +
+            ", stopCount=" + stopCount +
+            ", maxHeight=" + maxHeight +
+            ", minHeight=" + minHeight +
+            ", moveTime=" + moveTime +
             "]";
   }
 }

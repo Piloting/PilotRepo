@@ -3,34 +3,66 @@ package ru.pilot.tracks.dto;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
 @Table(name = "tPoint")
-public class PointDto {
-
+public class PointDto implements Serializable {
+  private static final long serialVersionUID = 1L;
+  
+  @Id
+  @Column(name = "pointId")
+  private Long pointId;
+  
   @ManyToOne
-  @JoinColumn(name = "trackid")
+  @JoinColumn(name = "trackId")
   private TrackDto track;
-
+  
   @Column(name = "date")
   private Date date;
 
-  @Column(name = "X")
-  private String X;
+  @Column(name = "x")
+  private BigDecimal x;
 
-  @Column(name = "Y")
-  private String Y;
+  @Column(name = "y")
+  private BigDecimal y;
 
-  @Column(name = "Z")
-  private String Z;
+  @Column(name = "z")
+  private BigDecimal z;
 
   @Column(name = "speed")
-  private String speed;
+  private BigDecimal speed;
   
+  public BigDecimal getX() {
+    return x;
+  }
+  public void setX(BigDecimal x) {
+    this.x = x;
+  }
+  public BigDecimal getY() {
+    return y;
+  }
+  public void setY(BigDecimal y) {
+    this.y = y;
+  }
+  public BigDecimal getZ() {
+    return z;
+  }
+  public void setZ(BigDecimal z) {
+    this.z = z;
+  }
+  public BigDecimal getSpeed() {
+    return speed;
+  }
+  public void setSpeed(BigDecimal speed) {
+    this.speed = speed;
+  }
   public TrackDto getTrack() {
     return track;
   }
@@ -40,41 +72,24 @@ public class PointDto {
   public Date getDate() {
     return date;
   }
-  public void setDate(java.sql.Date date) {
+  public void setDate(Date date) {
     this.date = date;
   }
-  public String getX() {
-    return X;
+  public Long getPointId() {
+    return pointId;
   }
-  public void setX(String X) {
-    this.X = X;
+  public void setPointId(Long pointId) {
+    this.pointId = pointId;
   }
-  public String getY() {
-    return Y;
-  }
-  public void setY(String Y) {
-    this.Y = Y;
-  }
-  public String getZ() {
-    return Z;
-  }
-  public void setZ(String Z) {
-    this.Z = Z;
-  }
-  public String getSpeed() {
-    return speed;
-  }
-  public void setSpeed(String speed) {
-    this.speed = speed;
-  }
-
+  
   @Override
   public String toString() {
-    return "Point[trackId=" + track.getTrackid() +
+    return "Point[pointId=" + pointId +
+            "trackId=" + track.getTrackId() +
             ", date=" + date +
-            ", X=" + X +
-            ", Y=" + Y +
-            ", Z=" + Z +
+            ", X=" + x +
+            ", Y=" + y +
+            ", Z=" + z +
             ", speed=" + speed +
             "]";
   }

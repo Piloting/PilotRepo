@@ -4,11 +4,12 @@ import org.hibernate.Session;
 
 import javax.persistence.criteria.CriteriaBuilder;
 
-public class BaseDao {
-    protected Session session;
-    protected CriteriaBuilder criteriaBuilder;
-    protected BaseDao (){
+public abstract class BaseDao {
+    protected static Session session;
+    protected static CriteriaBuilder cb;
+    
+    static {
         session = HibernateUtil.getSessionFactory().openSession();
-        criteriaBuilder = session.getCriteriaBuilder();
+        cb = session.getCriteriaBuilder();
     }
 }

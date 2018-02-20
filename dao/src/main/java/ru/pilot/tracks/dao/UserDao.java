@@ -15,19 +15,20 @@ public class UserDao extends BaseDao{
     }
     
     public UserDto getUserInfo(Long userId){
-        return session.load(UserDto.class, 1000L);
+        return session.load(UserDto.class, userId);
     }
     
     public List<UserDto> getAllUsers(){
-        CriteriaQuery<UserDto> query = criteriaBuilder.createQuery(UserDto.class);
+        CriteriaQuery<UserDto> query = cb.createQuery(UserDto.class);
         query.select(query.from(UserDto.class));
         return session.createQuery(query).getResultList();
     }
+    
     public List<UserDto> getUserByLogin(String login){
-        CriteriaQuery<UserDto> query = criteriaBuilder.createQuery(UserDto.class);
+        CriteriaQuery<UserDto> query = cb.createQuery(UserDto.class);
         Root<UserDto> users = query.from(UserDto.class);
         query.select(users);
-        query.where(criteriaBuilder.equal(users.get("login"),login));
+        query.where(cb.equal(users.get("login"),login));
         return session.createQuery(query).getResultList();
     }
 
