@@ -23,10 +23,23 @@ public class DaoTest {
         List<UserDto> allUsers = UserDao.INSTANCE.getAllUsers();
         for (UserDto user : allUsers) {
             System.out.println(user);
+            for (DeviceDto deviceDto : user.getDeviceDtoList()) {
+                System.out.println("   " + deviceDto);
+                for (TrackDto trackDto : deviceDto.getTrackDtoList()) {
+                    System.out.println("      " + trackDto);
+                    for (PointDto pointDto : trackDto.getPointDtoList()) {
+                        System.out.println("         " + pointDto);
+                    }
+                }
+            }
+            System.out.println();
         }
 
         List<UserDto> pilot = UserDao.INSTANCE.getUserByLogin("pilot");
         System.out.println(pilot.toString());
+
+        Long userId = UserDao.INSTANCE.createUser("Love", "Love", "Love", "qwasvvvvvt342l!@3");
+        System.out.println(userId);
     }
 
     @Test
@@ -41,6 +54,11 @@ public class DaoTest {
 
         List<DeviceDto> devicesByUser = DeviceDao.INSTANCE.getDevicesByUser(1000L);
         System.out.println(devicesByUser);
+
+        Long deviceId = DeviceDao.INSTANCE.createDevice(1000L, "NewMobile", null);
+        System.out.println(deviceId);
+
+        DeviceDao.INSTANCE.updateDevice(deviceId, 1001L, null, "com");
     }
     
     @Test

@@ -17,13 +17,11 @@ public class PointDto implements Serializable {
   private static final long serialVersionUID = 1L;
   
   @Id
-  @Column(name = "pointId")
-  private Long pointId;
-  
   @ManyToOne
   @JoinColumn(name = "trackId")
   private TrackDto track;
   
+  @Id
   @Column(name = "date")
   private Date date;
 
@@ -75,17 +73,10 @@ public class PointDto implements Serializable {
   public void setDate(Date date) {
     this.date = date;
   }
-  public Long getPointId() {
-    return pointId;
-  }
-  public void setPointId(Long pointId) {
-    this.pointId = pointId;
-  }
   
   @Override
   public String toString() {
-    return "Point[pointId=" + pointId +
-            "trackId=" + track.getTrackId() +
+    return "Point[trackId=" + track.getTrackId() +
             ", date=" + date +
             ", X=" + x +
             ", Y=" + y +

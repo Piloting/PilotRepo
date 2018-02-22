@@ -1,18 +1,36 @@
 package ru.pilot.tracks.dto;
 
 
+import ru.pilot.tracks.idProvider.IdProvider;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
-@Table(name = "tuser")
+@Table(name = UserDto.TABLE_NAME)
+@TableGenerator(
+        table = IdProvider.TABLE,
+        pkColumnName = IdProvider.PK_COLUMN,
+        valueColumnName = IdProvider.VALUE_COLUMN,
+        name = UserDto.TABLE_NAME,
+        pkColumnValue = UserDto.TABLE_NAME
+)
 public class UserDto implements Serializable {
+    static final String TABLE_NAME = "tUser";
     private static final long serialVersionUID = 1L;
     
     @Id
+    @GeneratedValue(strategy = GenerationType.TABLE, generator=UserDto.TABLE_NAME)
     @Column(name = "userId")
     private Long userId;
     
@@ -27,7 +45,12 @@ public class UserDto implements Serializable {
     
     @Column(name = "pass")
     private String pass;
-
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+    private List<DeviceDto> deviceDtoList;
+    
+    public List<DeviceDto> getDeviceDtoList() { return deviceDtoList; }
+    public void setDeviceDtoList(List<DeviceDto> deviceDtoList) { this.deviceDtoList = deviceDtoList; }
     public Long getUserId() {
         return userId;
     }

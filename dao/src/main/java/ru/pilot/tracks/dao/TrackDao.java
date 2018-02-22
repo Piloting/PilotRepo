@@ -18,7 +18,7 @@ public class TrackDao extends BaseDao {
         Root<TrackDto> tracks = query.from(TrackDto.class);
         query.select(tracks);
         query.where(cb.equal(tracks.get("device"),deviceId));
-        return session.createQuery(query).getResultList();
+        return newSession().createQuery(query).getResultList();
     }
     
     public List<TrackDto> getTracksByDeviceAndDate(Long deviceId, Date startDate, Date endDate){
@@ -29,7 +29,7 @@ public class TrackDao extends BaseDao {
                 cb.equal(tracks.get("device"),deviceId), 
                 cb.between(tracks.get("dateStart"),startDate, endDate))
         );
-        return session.createQuery(query).getResultList();
+        return newSession().createQuery(query).getResultList();
     }
     
     public List<PointDto> getPointsByTrack(Long trackId){
@@ -37,7 +37,7 @@ public class TrackDao extends BaseDao {
         Root<PointDto> points = query.from(PointDto.class);
         query.select(points);
         query.where(cb.equal(points.get("track"),trackId));
-        return session.createQuery(query).getResultList();
+        return newSession().createQuery(query).getResultList();
     }
     
     

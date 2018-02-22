@@ -1,24 +1,42 @@
 package ru.pilot.tracks.dto;
 
+import ru.pilot.tracks.idProvider.IdProvider;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-@Table(name = "tTrack")
+@Table(name = TrackDto.TABLE_NAME)
+@TableGenerator(
+        table = IdProvider.TABLE,
+        pkColumnName = IdProvider.PK_COLUMN,
+        valueColumnName = IdProvider.VALUE_COLUMN,
+        name = TrackDto.TABLE_NAME,
+        pkColumnValue = TrackDto.TABLE_NAME
+)
 public class TrackDto implements Serializable {
+  static final String TABLE_NAME = "tTrack";
   private static final long serialVersionUID = 1L;
     
   @Id
+  @GeneratedValue(strategy = GenerationType.TABLE, generator=TrackDto.TABLE_NAME)
   @Column(name = "trackId")
   private Long trackId;
   
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "deviceId")
   private DeviceDto device;
 
@@ -33,8 +51,10 @@ public class TrackDto implements Serializable {
   
   @Column(name = "dateEnd")
   private Date dateEnd;
-
-
+  
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "track", cascade = CascadeType.ALL)
+  private List<PointDto> pointDtoList;
+  
   public Long getTrackId() {
     return trackId;
   }
@@ -71,10 +91,16 @@ public class TrackDto implements Serializable {
   public void setDateEnd(Date dateEnd) {
     this.dateEnd = dateEnd;
   }
-
+  public List<PointDto> getPointDtoList() {
+    return pointDtoList;
+  }
+  public void setPointDtoList(List<PointDto> pointDtoList) {
+    this.pointDtoList = pointDtoList;
+  }
+  
   @Override
   public String toString() {
-    return "Point[trackId=" + trackId +
+    return "Track[trackId=" + trackId +
             ", deviceid=" + device.getDeviceId() +
             ", name=" + name +
             ", comment=" + comment +
@@ -82,5 +108,4 @@ public class TrackDto implements Serializable {
             ", datend=" + dateEnd +
             "]";
   }
-
 }

@@ -37,14 +37,19 @@ create table tStat(
 );
 
 create table tPoint(
-  pointId numeric(8) not null constraint tPoint_pkey primary key,
+  --pointId numeric(8) not null constraint tPoint_pkey primary key,
   trackId numeric(8) not null,
-  date date not null,
+  date timestamp not null,
   x numeric(18,10),
   y numeric(18,10),
   z numeric(8),
   speed numeric(8)
 );
+
+create table tSequence(
+    table_name varchar(50) NOT NULL,
+    next_id numeric(8) NOT NULL
+)
 
 INSERT INTO tUser(userId, login, brief, name, pass)
 VALUES (1000, 'Pilot', 'Pilot', 'Pilot Pilot', null);

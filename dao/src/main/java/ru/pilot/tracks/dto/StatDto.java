@@ -1,20 +1,34 @@
 package ru.pilot.tracks.dto;
 
+import ru.pilot.tracks.idProvider.IdProvider;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "tStat")
+@Table(name = StatDto.TABLE_NAME)
+@TableGenerator(
+        table = IdProvider.TABLE,
+        pkColumnName = IdProvider.PK_COLUMN,
+        valueColumnName = IdProvider.VALUE_COLUMN,
+        name = StatDto.TABLE_NAME,
+        pkColumnValue = StatDto.TABLE_NAME
+)
 public class StatDto implements Serializable {
+  static final String TABLE_NAME = "tStat";
   private static final long serialVersionUID = 1L;
     
   @Id
+  @GeneratedValue(strategy = GenerationType.TABLE, generator=StatDto.TABLE_NAME)
   @Column(name = "statId")
   private Long statId;
   
