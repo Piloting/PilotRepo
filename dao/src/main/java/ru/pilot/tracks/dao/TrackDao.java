@@ -1,5 +1,7 @@
 package ru.pilot.tracks.dao;
 
+import org.hibernate.Session;
+import ru.pilot.tracks.dto.DeviceDto;
 import ru.pilot.tracks.dto.PointDto;
 import ru.pilot.tracks.dto.TrackDto;
 
@@ -40,15 +42,71 @@ public class TrackDao extends BaseDao {
         return newSession().createQuery(query).getResultList();
     }
     
+    public TrackDto createTrack(Long deviceId, String name, String comment, Date dateStart, Date dateEnd){
+        Session session = newSession();
+        session.beginTransaction();
+
+        TrackDto trackDto = new TrackDto();
+        DeviceDto deviceDto = session.load(DeviceDto.class, deviceId);
+        trackDto.setDevice(deviceDto);
+        trackDto.setName(name);
+        trackDto.setComment(comment);
+        trackDto.setDateStart(dateStart);
+        trackDto.setDateEnd(dateEnd);
+        deviceDto.getTrackDtoList().add(trackDto);
+        session.save(trackDto);
+        session.save(deviceDto);
+
+        session.getTransaction().commit();
+        return trackDto;
+    }
     
+    public Long updateTrack(Long trackId, Long deviceId, String name, String comment, Date dateStart, Date dateEnd){
+        Session session = newSession();
+        session.beginTransaction();
+
+        TrackDto trackDto = session.load(TrackDto.class, trackId);
+        trackDto.setDevice(session.load(DeviceDto.class, deviceId));
+        trackDto.setName(name);
+        trackDto.setComment(comment);
+        trackDto.setDateStart(dateStart);
+        trackDto.setDateEnd(dateEnd);
+        session.save(trackDto);
+
+        session.getTransaction().commit();
+        return trackDto.getTrackId();
+    }
+
+    public void deleteTrack(Long trackId){
+        delete(TrackDto.class, trackId);
+    }
+
+    public void addPoint(TrackDto trackDto, PointDto pointDto){
+        Session session = newSession();
+        session.beginTransaction();
+
+        trackDto.getPointDtoList().add(pointDto);
+        session.save(pointDto);
+        session.save(trackDto);
+
+        session.getTransaction().commit();
+    }
+    
+    public void addPoints(TrackDto trackDto, List<PointDto> pointDtoList){
+        Session session = newSession();
+        session.beginTransaction();
+
+        for (PointDto pointDto : pointDtoList) {
+            session.save(pointDto);
+        }
+        trackDto.getPointDtoList().addAll(pointDtoList);
+        session.save(trackDto);
+
+        session.getTransaction().commit();
+    }
+
 
     //////////////////////////
-    public Long createTrack(Long deviceId, String name, Date startDate, Date endDate){
-        return 1L;
-    }
-    public Long createTrack(Long deviceId, String name, Date startDate){
-        return 1L;
-    }
     public void finalizeTrack(Long trackId, Date endDate){
 
     }

@@ -21,7 +21,8 @@ import java.math.BigDecimal;
         pkColumnName = IdProvider.PK_COLUMN,
         valueColumnName = IdProvider.VALUE_COLUMN,
         name = StatDto.TABLE_NAME,
-        pkColumnValue = StatDto.TABLE_NAME
+        pkColumnValue = StatDto.TABLE_NAME,
+        allocationSize = IdProvider.BATCH_SIZE
 )
 public class StatDto implements Serializable {
   static final String TABLE_NAME = "tStat";

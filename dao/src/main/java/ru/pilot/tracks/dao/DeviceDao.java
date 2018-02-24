@@ -12,21 +12,24 @@ public class DeviceDao extends BaseDao{
     public static DeviceDao INSTANCE = new DeviceDao();
     private DeviceDao(){}
     
-    public Long createDevice(Long userId, String brief, String comment){
+    public DeviceDto createDevice(Long userId, String brief, String comment){
         Session session = newSession();
         session.beginTransaction();
 
         DeviceDto deviceDto = new DeviceDto();
-        deviceDto.setUser(session.load(UserDto.class, userId));
+        UserDto userDto = session.load(UserDto.class, userId);
+        deviceDto.setUser(userDto);
         deviceDto.setBrief(brief);
         deviceDto.setComment(comment);
+        userDto.getDeviceDtoList().add(deviceDto);
         session.save(deviceDto);
+        session.save(userDto);
 
         session.getTransaction().commit();
-        return deviceDto.getDeviceId();
+        return deviceDto;
     }
     
-    public Long updateDevice(Long deviceId, Long userId, String brief, String comment){
+    public void updateDevice(Long deviceId, Long userId, String brief, String comment){
         Session session = newSession();
         session.beginTransaction();
 
@@ -37,7 +40,10 @@ public class DeviceDao extends BaseDao{
         session.save(deviceDto);
 
         session.getTransaction().commit();
-        return deviceDto.getDeviceId();
+    }
+    
+    public void deleteDevice(Long deviceId){
+        delete(DeviceDto.class, deviceId);
     }
     
     public DeviceDto getDeviceInfo(Long deviceId){

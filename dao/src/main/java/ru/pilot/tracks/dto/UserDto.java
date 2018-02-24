@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,7 +24,8 @@ import java.util.List;
         pkColumnName = IdProvider.PK_COLUMN,
         valueColumnName = IdProvider.VALUE_COLUMN,
         name = UserDto.TABLE_NAME,
-        pkColumnValue = UserDto.TABLE_NAME
+        pkColumnValue = UserDto.TABLE_NAME,
+        allocationSize = IdProvider.BATCH_SIZE
 )
 public class UserDto implements Serializable {
     static final String TABLE_NAME = "tUser";
@@ -49,7 +51,12 @@ public class UserDto implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     private List<DeviceDto> deviceDtoList;
     
-    public List<DeviceDto> getDeviceDtoList() { return deviceDtoList; }
+    public List<DeviceDto> getDeviceDtoList() { 
+        if (deviceDtoList == null){
+            deviceDtoList = new ArrayList<>();
+        }
+        return deviceDtoList; 
+    }
     public void setDeviceDtoList(List<DeviceDto> deviceDtoList) { this.deviceDtoList = deviceDtoList; }
     public Long getUserId() {
         return userId;

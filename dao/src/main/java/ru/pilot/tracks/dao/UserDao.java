@@ -11,7 +11,7 @@ public class UserDao extends BaseDao{
     public static UserDao INSTANCE = new UserDao();
     private UserDao (){}
     
-    public Long createUser(String login, String brief, String name, String pass){
+    public UserDto createUser(String login, String brief, String name, String pass){
         Session session = newSession();
         session.beginTransaction();
         
@@ -24,7 +24,7 @@ public class UserDao extends BaseDao{
         
         session.getTransaction().commit();
         
-        return userDto.getUserId();
+        return userDto;
     }
     
     public UserDto getUserInfo(Long userId){
@@ -43,6 +43,10 @@ public class UserDao extends BaseDao{
         query.select(users);
         query.where(cb.equal(users.get("login"),login));
         return newSession().createQuery(query).getResultList();
+    }
+
+    public void deleteUser(Long userId){
+        delete(UserDto.class, userId);
     }
 
 }

@@ -16,6 +16,18 @@ import java.util.Date;
 public class PointDto implements Serializable {
   private static final long serialVersionUID = 1L;
   
+  public PointDto(){
+    
+  }
+  public PointDto(TrackDto track, Date date, BigDecimal x, BigDecimal y, BigDecimal z, BigDecimal speed){
+    this.track = track;
+    this.date = date;
+    this.x = x;
+    this.y = y;
+    this.z = z;
+    this.speed = speed;
+  }
+  
   @Id
   @ManyToOne
   @JoinColumn(name = "trackId")

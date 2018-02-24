@@ -2,6 +2,7 @@ package ru.pilot.tracks.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import ru.pilot.tracks.dto.TrackDto;
 
 import javax.persistence.criteria.CriteriaBuilder;
 
@@ -18,5 +19,13 @@ public abstract class BaseDao {
     
     protected Session newSession(){
         return s; //sf.openSession();
+    }
+
+    
+    public void delete(Class<?> objClass, Long trackId){
+        Session session = newSession();
+        session.beginTransaction();
+        session.remove(session.load(objClass, trackId));
+        session.getTransaction().commit();
     }
 }

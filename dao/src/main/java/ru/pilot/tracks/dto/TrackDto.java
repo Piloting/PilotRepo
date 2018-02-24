@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -25,7 +26,8 @@ import java.util.List;
         pkColumnName = IdProvider.PK_COLUMN,
         valueColumnName = IdProvider.VALUE_COLUMN,
         name = TrackDto.TABLE_NAME,
-        pkColumnValue = TrackDto.TABLE_NAME
+        pkColumnValue = TrackDto.TABLE_NAME,
+        allocationSize = IdProvider.BATCH_SIZE
 )
 public class TrackDto implements Serializable {
   static final String TABLE_NAME = "tTrack";
@@ -92,9 +94,15 @@ public class TrackDto implements Serializable {
     this.dateEnd = dateEnd;
   }
   public List<PointDto> getPointDtoList() {
+    if (pointDtoList == null){
+      pointDtoList = new ArrayList<>();
+    }
     return pointDtoList;
   }
   public void setPointDtoList(List<PointDto> pointDtoList) {
+    if (pointDtoList == null){
+      pointDtoList = new ArrayList<>();
+    }
     this.pointDtoList = pointDtoList;
   }
   

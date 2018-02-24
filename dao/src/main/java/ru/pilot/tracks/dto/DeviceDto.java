@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,7 +25,8 @@ import java.util.List;
         pkColumnName = IdProvider.PK_COLUMN,
         valueColumnName = IdProvider.VALUE_COLUMN,
         name = DeviceDto.TABLE_NAME,
-        pkColumnValue = DeviceDto.TABLE_NAME
+        pkColumnValue = DeviceDto.TABLE_NAME,
+        allocationSize = IdProvider.BATCH_SIZE
 )
 public class DeviceDto implements Serializable {
   static final String TABLE_NAME = "tDevice";
@@ -73,6 +75,9 @@ public class DeviceDto implements Serializable {
     this.comment = comment;
   }
   public List<TrackDto> getTrackDtoList() {
+    if (trackDtoList == null){
+      trackDtoList = new ArrayList<>();
+    }
     return trackDtoList;
   }
   public void setTrackDtoList(List<TrackDto> trackDtoList) {
