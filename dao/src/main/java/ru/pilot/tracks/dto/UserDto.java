@@ -49,7 +49,7 @@ public class UserDto implements Serializable {
     private String pass;
     
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
-    private List<DeviceDto> deviceDtoList;
+    transient private List<DeviceDto> deviceDtoList;
     
     public List<DeviceDto> getDeviceDtoList() { 
         if (deviceDtoList == null){

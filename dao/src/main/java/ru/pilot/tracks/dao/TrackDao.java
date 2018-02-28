@@ -7,6 +7,7 @@ import ru.pilot.tracks.dto.TrackDto;
 
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +15,15 @@ public class TrackDao extends BaseDao {
     public static TrackDao INSTANCE = new TrackDao();
     private TrackDao (){}
 
+    public List<TrackDto> getAllTrack(){
+        CriteriaQuery<TrackDto> query = cb.createQuery(TrackDto.class);
+        query.select(query.from(TrackDto.class));
+        return newSession().createQuery(query).getResultList();
+    }
+    
+    public TrackDto getTrackInfo(Serializable trackId){
+        return newSession().load(TrackDto.class, trackId);
+    }
     
     public List<TrackDto> getTracksByDevice(Long deviceId){
         CriteriaQuery<TrackDto> query = cb.createQuery(TrackDto.class);

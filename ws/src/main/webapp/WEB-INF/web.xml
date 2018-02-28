@@ -7,12 +7,154 @@
     <display-name>TrackMapService</display-name>
     
     <servlet>
-        <servlet-name>GetUsers</servlet-name>
-        <servlet-class>ru.pilot.tracks.cmd.GetUsers</servlet-class>
+        <servlet-name>UserGet</servlet-name>
+        <servlet-class>ru.pilot.tracks.user.UserGet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>GetUsers</servlet-name>
-        <url-pattern>/GetUsers</url-pattern>
+        <servlet-name>UserGet</servlet-name>
+        <url-pattern>/UserGet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>UserCreate</servlet-name>
+        <servlet-class>ru.pilot.tracks.user.UserCreate</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserCreate</servlet-name>
+        <url-pattern>/UserCreate</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UserDelete</servlet-name>
+        <servlet-class>ru.pilot.tracks.user.UserDelete</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserDelete</servlet-name>
+        <url-pattern>/UserDelete</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UserUpdate</servlet-name>
+        <servlet-class>ru.pilot.tracks.user.UserUpdate</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserUpdate</servlet-name>
+        <url-pattern>/UserUpdate</url-pattern>
+    </servlet-mapping>
+
+
+    
+    <servlet>
+        <servlet-name>DeviceCreate</servlet-name>
+        <servlet-class>ru.pilot.tracks.device.DeviceCreate</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeviceCreate</servlet-name>
+        <url-pattern>/DeviceCreate</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeviceDelete</servlet-name>
+        <servlet-class>ru.pilot.tracks.device.DeviceDelete</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeviceDelete</servlet-name>
+        <url-pattern>/DeviceDelete</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeviceGet</servlet-name>
+        <servlet-class>ru.pilot.tracks.device.DeviceGet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeviceGet</servlet-name>
+        <url-pattern>/DeviceGet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeviceUpdate</servlet-name>
+        <servlet-class>ru.pilot.tracks.device.DeviceUpdate</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeviceUpdate</servlet-name>
+        <url-pattern>/DeviceUpdate</url-pattern>
+    </servlet-mapping>
+
+
+
+    <servlet>
+        <servlet-name>TrackCreate</servlet-name>
+        <servlet-class>ru.pilot.tracks.track.TrackCreate</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TrackCreate</servlet-name>
+        <url-pattern>/TrackCreate</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>TrackDelete</servlet-name>
+        <servlet-class>ru.pilot.tracks.track.TrackDelete</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TrackDelete</servlet-name>
+        <url-pattern>/TrackDelete</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>TrackGet</servlet-name>
+        <servlet-class>ru.pilot.tracks.track.TrackGet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TrackGet</servlet-name>
+        <url-pattern>/TrackGet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>TrackUpdate</servlet-name>
+        <servlet-class>ru.pilot.tracks.track.TrackUpdate</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TrackUpdate</servlet-name>
+        <url-pattern>/TrackUpdate</url-pattern>
+    </servlet-mapping>
+
+
+
+
+
+    <servlet>
+        <servlet-name>PointCreate</servlet-name>
+        <servlet-class>ru.pilot.tracks.point.PointCreate</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PointCreate</servlet-name>
+        <url-pattern>/PointCreate</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PointDelete</servlet-name>
+        <servlet-class>ru.pilot.tracks.point.PointDelete</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PointDelete</servlet-name>
+        <url-pattern>/PointDelete</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PointGet</servlet-name>
+        <servlet-class>ru.pilot.tracks.point.PointGet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PointGet</servlet-name>
+        <url-pattern>/PointGet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PointUpdate</servlet-name>
+        <servlet-class>ru.pilot.tracks.point.PointUpdate</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PointUpdate</servlet-name>
+        <url-pattern>/PointUpdate</url-pattern>
+    </servlet-mapping>
 </web-app>

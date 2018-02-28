@@ -55,7 +55,7 @@ public class TrackDto implements Serializable {
   private Date dateEnd;
   
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "track", cascade = CascadeType.ALL)
-  private List<PointDto> pointDtoList;
+  transient private List<PointDto> pointDtoList;
   
   public Long getTrackId() {
     return trackId;

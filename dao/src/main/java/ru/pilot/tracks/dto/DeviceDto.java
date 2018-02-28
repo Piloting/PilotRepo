@@ -48,7 +48,7 @@ public class DeviceDto implements Serializable {
   private String comment;
   
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "device", cascade = CascadeType.ALL)
-  private List<TrackDto> trackDtoList;
+  transient private List<TrackDto> trackDtoList;
 
   public Long getDeviceId() {
     return deviceId;
