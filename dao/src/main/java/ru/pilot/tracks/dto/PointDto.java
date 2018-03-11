@@ -13,7 +13,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "tPoint")
-public class PointDto implements Serializable {
+public class PointDto extends BaseDto {
   private static final long serialVersionUID = 1L;
   
   public PointDto(){

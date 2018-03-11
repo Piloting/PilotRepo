@@ -27,6 +27,18 @@ public class UserDao extends BaseDao{
         return userDto;
     }
     
+    public List<UserDto> createUsers(List<UserDto> userDtoList){
+        Session session = newSession();
+        session.beginTransaction();
+        
+        for (UserDto userDto : userDtoList) {
+            session.save(userDto);
+        }
+        session.getTransaction().commit();
+        
+        return userDtoList;
+    }
+    
     public UserDto getUserInfo(Long userId){
         return newSession().load(UserDto.class, userId);
     }

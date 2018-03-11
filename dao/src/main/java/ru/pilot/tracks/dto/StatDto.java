@@ -24,7 +24,7 @@ import java.math.BigDecimal;
         pkColumnValue = StatDto.TABLE_NAME,
         allocationSize = IdProvider.BATCH_SIZE
 )
-public class StatDto implements Serializable {
+public class StatDto extends BaseDto {
   static final String TABLE_NAME = "tStat";
   private static final long serialVersionUID = 1L;
     

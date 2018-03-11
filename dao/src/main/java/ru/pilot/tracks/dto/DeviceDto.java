@@ -28,7 +28,7 @@ import java.util.List;
         pkColumnValue = DeviceDto.TABLE_NAME,
         allocationSize = IdProvider.BATCH_SIZE
 )
-public class DeviceDto implements Serializable {
+public class DeviceDto extends BaseDto {
   static final String TABLE_NAME = "tDevice";
   private static final long serialVersionUID = 1L;
   

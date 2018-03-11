@@ -2,12 +2,14 @@ package ru.pilot.tracks.cmd;
 
 import com.google.gson.Gson;
 import org.apache.commons.lang3.StringUtils;
+import ru.pilot.tracks.dto.BaseDto;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.Map;
 
 public abstract class BaseCmd extends HttpServlet {
@@ -41,7 +43,13 @@ public abstract class BaseCmd extends HttpServlet {
         return null;
     }
 
-    protected abstract Map<String, Object> execute(HttpServletRequest req);
+    protected <T extends BaseDto> void print(List<T> objectList){
+        for (T baseDto : objectList) {
+            System.out.println(baseDto);
+        }
+    }
+    
+    protected abstract Map<String, Object> execute(HttpServletRequest req) throws IOException;
     
     
 

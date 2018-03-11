@@ -27,7 +27,7 @@ import java.util.List;
         pkColumnValue = UserDto.TABLE_NAME,
         allocationSize = IdProvider.BATCH_SIZE
 )
-public class UserDto implements Serializable {
+public class UserDto extends BaseDto {
     static final String TABLE_NAME = "tUser";
     private static final long serialVersionUID = 1L;
     

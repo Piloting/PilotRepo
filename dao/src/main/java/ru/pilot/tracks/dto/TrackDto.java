@@ -29,7 +29,7 @@ import java.util.List;
         pkColumnValue = TrackDto.TABLE_NAME,
         allocationSize = IdProvider.BATCH_SIZE
 )
-public class TrackDto implements Serializable {
+public class TrackDto extends BaseDto {
   static final String TABLE_NAME = "tTrack";
   private static final long serialVersionUID = 1L;
     
