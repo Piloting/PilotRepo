@@ -1,5 +1,13 @@
 package ru.pilot.tracks.dto;
 
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
+import ru.pilot.tracks.dao.DeviceDao;
 import ru.pilot.tracks.idProvider.IdProvider;
 
 import javax.persistence.CascadeType;
@@ -14,7 +22,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
-import java.io.Serializable;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -109,11 +117,55 @@ public class TrackDto extends BaseDto {
   @Override
   public String toString() {
     return "Track[trackId=" + trackId +
-            ", deviceid=" + device.getDeviceId() +
+            ", deviceId=" + device.getDeviceId() +
             ", name=" + name +
             ", comment=" + comment +
-            ", datestart=" + dateStart +
-            ", datend=" + dateEnd +
+            ", dateStart=" + dateStart +
+            ", datEnd=" + dateEnd +
             "]";
+  }
+  
+  public static class Serializer implements JsonSerializer<TrackDto> {
+    @Override
+    public JsonElement serialize(TrackDto src, Type type, JsonSerializationContext jsonSerializationContext) {
+      JsonObject result = new JsonObject();
+      result.addProperty("trackId", src.getTrackId());
+      result.addProperty("deviceId", src.getDevice().getDeviceId());
+      result.addProperty("name", src.getName());
+      result.addProperty("comment", src.getComment());
+      result.addProperty("dateStart", src.getDateStart().toString());
+      result.addProperty("datEnd", src.getDateEnd().toString());
+      return result;
+    }
+  }
+  
+  public static class Deserializer implements JsonDeserializer<TrackDto>
+  {
+    @Override
+    public TrackDto deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException
+    {
+      JsonObject jsonObject = json.getAsJsonObject();
+      TrackDto trackDto = new TrackDto();
+
+      JsonElement element = jsonObject.get("comment");
+      trackDto.setComment(element != null ? element.getAsString() : null);
+      
+      element = jsonObject.get("deviceid");
+      trackDto.setDevice(element != null ? DeviceDao.INSTANCE.getDeviceInfo(element.getAsLong()) : null);
+
+      element = jsonObject.get("name");
+      trackDto.setName(element != null ? element.getAsString() : null);
+      
+      element = jsonObject.get("trackId");
+      trackDto.setTrackId(element != null ? element.getAsLong() : null);
+
+      element = jsonObject.get("dateEnd");
+      trackDto.setDateEnd(element != null ? strToDate(element.getAsString()) : null);
+
+      element = jsonObject.get("dateStart");
+      trackDto.setDateStart(element != null ? strToDate(element.getAsString()) : null);
+
+      return trackDto;
+    }
   }
 }

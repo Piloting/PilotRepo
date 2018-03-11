@@ -1,5 +1,9 @@
 package ru.pilot.tracks.dto;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import ru.pilot.tracks.idProvider.IdProvider;
 
 import javax.persistence.Column;
@@ -11,7 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
-import java.io.Serializable;
+import java.lang.reflect.Type;
 import java.math.BigDecimal;
 
 @Entity
@@ -127,7 +131,7 @@ public class StatDto extends BaseDto {
   @Override
   public String toString() {
     return "Point[statId=" + statId +
-            "trackId=" + track.getTrackId() +
+            ", trackId=" + track.getTrackId() +
             ", len=" + len +
             ", time=" + time +
             ", avgSpeed=" + avgSpeed +
@@ -138,4 +142,25 @@ public class StatDto extends BaseDto {
             ", moveTime=" + moveTime +
             "]";
   }
+
+
+  public static class Serializer implements JsonSerializer<StatDto> {
+    @Override
+    public JsonElement serialize(StatDto src, Type type, JsonSerializationContext jsonSerializationContext) {
+      JsonObject result = new JsonObject();
+      result.addProperty("statId", src.getStatId());
+      result.addProperty("trackId", src.getTrack().getTrackId());
+      result.addProperty("len", src.getLen());
+      result.addProperty("time", src.getTime());
+      result.addProperty("avgSpeed", src.getAvgSpeed());
+      result.addProperty("maxSpeed", src.getMaxSpeed());
+      result.addProperty("stopCount", src.getStopcount());
+      result.addProperty("maxHeight", src.getMaxHeight());
+      result.addProperty("minHeight", src.getMinHeight());
+      result.addProperty("moveTime", src.getMoveTime());
+      return result;
+    }
+  }
+  
+  // todo deSerializer
 }

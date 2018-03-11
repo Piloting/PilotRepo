@@ -34,8 +34,11 @@ public class DeviceDao extends BaseDao{
         session.beginTransaction();
 
         for (DeviceDto deviceDto : deviceDtoList) {
-            // todo user?
+            UserDto userDto = session.load(UserDto.class, deviceDto.getUser().getUserId());
+            //deviceDto.setUser(userDto);
+            userDto.getDeviceDtoList().add(deviceDto);
             session.save(deviceDto);
+            session.save(userDto);
         }
         session.getTransaction().commit();
 

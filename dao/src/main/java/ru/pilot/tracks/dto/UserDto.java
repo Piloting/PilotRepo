@@ -1,6 +1,10 @@
 package ru.pilot.tracks.dto;
 
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import ru.pilot.tracks.idProvider.IdProvider;
 
 import javax.persistence.CascadeType;
@@ -13,7 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
-import java.io.Serializable;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,11 +95,24 @@ public class UserDto extends BaseDto {
 
     @Override
     public String toString() {
-        return "User[id="+userId+
+        return "User[userId="+userId+
                 ", login="+login+
                 ", brief="+brief+
                 ", name="+name+
                 ", pass="+pass+
                 "]";
+    }
+
+    public static class Serializer implements JsonSerializer<UserDto> {
+        @Override
+        public JsonElement serialize(UserDto src, Type type, JsonSerializationContext jsonSerializationContext) {
+            JsonObject result = new JsonObject();
+            result.addProperty("userId", src.getUserId());
+            result.addProperty("login", src.getLogin());
+            result.addProperty("brief", src.getBrief());
+            result.addProperty("name", src.getName());
+            result.addProperty("pass", src.getPass());
+            return result;
+        }
     }
 }

@@ -71,6 +71,21 @@ public class TrackDao extends BaseDao {
         return trackDto;
     }
     
+    public List<TrackDto> createTracks(List<TrackDto> deviceList){
+        Session session = newSession();
+        session.beginTransaction();
+
+        for (TrackDto trackDto : deviceList) {
+            DeviceDto deviceDto = session.load(DeviceDto.class, trackDto.getDevice().getDeviceId());
+            deviceDto.getTrackDtoList().add(trackDto);
+            session.save(trackDto);
+            session.save(deviceDto);
+        }
+
+        session.getTransaction().commit();
+        return deviceList;
+    }
+    
     public Long updateTrack(Long trackId, Long deviceId, String name, String comment, Date dateStart, Date dateEnd){
         Session session = newSession();
         session.beginTransaction();
@@ -114,7 +129,11 @@ public class TrackDao extends BaseDao {
 
         session.getTransaction().commit();
     }
-
+    
+    public void addPoints(Long trackId, List<PointDto> pointDtoList){
+        TrackDto trackInfo = getTrackInfo(trackId);
+        addPoints(trackInfo, pointDtoList);
+    }
 
     //////////////////////////
     public void finalizeTrack(Long trackId, Date endDate){

@@ -22,6 +22,7 @@ public class UserGet extends BaseCmd {
         Map<String, Object> res = new HashMap<>();
         List<UserDto> resList = new ArrayList<>();
         if (id != null){
+            // todo check exists
             resList.add(UserDao.INSTANCE.getUserInfo(id));
         } else {
             resList.addAll(UserDao.INSTANCE.getAllUsers());

@@ -1,5 +1,13 @@
 package ru.pilot.tracks.dto;
 
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
+import ru.pilot.tracks.dao.UserDao;
 import ru.pilot.tracks.idProvider.IdProvider;
 
 import javax.persistence.CascadeType;
@@ -14,7 +22,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
-import java.io.Serializable;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,5 +99,41 @@ public class DeviceDto extends BaseDto {
             ", brief="+brief+
             ", comment="+comment+
             "]";
+  }
+
+  public static class Serializer implements JsonSerializer<DeviceDto> {
+    @Override
+    public JsonElement serialize(DeviceDto src, Type type, JsonSerializationContext jsonSerializationContext) {
+      JsonObject result = new JsonObject();
+      result.addProperty("deviceId", src.getDeviceId());
+      result.addProperty("userId", src.getUser().getUserId());
+      result.addProperty("brief", src.getBrief());
+      result.addProperty("comment", src.getComment());
+      return result;
+    }
+  }
+
+  public static class Deserializer implements JsonDeserializer<DeviceDto>
+  {
+    @Override
+    public DeviceDto deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException
+    {
+      JsonObject jsonObject = json.getAsJsonObject();
+      DeviceDto deviceDto = new DeviceDto();
+
+      JsonElement element = jsonObject.get("brief");
+      deviceDto.setBrief(element != null ? element.getAsString() : null);
+      
+      element = jsonObject.get("comment");
+      deviceDto.setComment(element != null ? element.getAsString() : null);
+      
+      element = jsonObject.get("deviceId");
+      deviceDto.setDeviceId(element != null ? element.getAsLong() : null);
+
+      element = jsonObject.get("userId");
+      deviceDto.setUser(element != null ? UserDao.INSTANCE.getUserInfo(element.getAsLong()) : null);
+      
+      return deviceDto;
+    }
   }
 }

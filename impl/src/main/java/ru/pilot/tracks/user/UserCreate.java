@@ -1,6 +1,5 @@
 package ru.pilot.tracks.user;
 
-import com.google.gson.Gson;
 import ru.pilot.tracks.cmd.BaseCmd;
 import ru.pilot.tracks.dao.UserDao;
 import ru.pilot.tracks.dto.UserDto;
@@ -40,8 +39,12 @@ public class UserCreate extends BaseCmd {
     protected Map<String, Object> execute(HttpServletRequest req) throws IOException {
         List<UserDto> userList = getObjectFromJson(req);
         
+        // clear IDs
+        for (UserDto userDto : userList) {
+            userDto.setUserId(null);
+        }
+
         List<UserDto> userDtoList = UserDao.INSTANCE.createUsers(userList);
-        print(userDtoList);
         
         Map<String, Object> res = new HashMap<>();
         res.put(LIST_NAME, userDtoList);
@@ -49,7 +52,7 @@ public class UserCreate extends BaseCmd {
     }
 
     private List<UserDto> getObjectFromJson(HttpServletRequest req) throws IOException {
-        UserDto[] userArray = new Gson().fromJson(req.getReader(), UserDto[].class);
+        UserDto[] userArray = gson.fromJson(req.getReader(), UserDto[].class);
         return new ArrayList<>(Arrays.asList(userArray));
     }
 }

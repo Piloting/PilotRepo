@@ -10,6 +10,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Получение утройств. На входе м.б. deviceId(в приоритете) или userId. Если не переданы - вернем всех (todo удалить это потом)
+ */
 public class DeviceGet extends BaseCmd {
 
     private static final String ID_PARAM_NAME = "deviceId";
