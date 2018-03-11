@@ -157,4 +157,13 @@
         <servlet-name>PointUpdate</servlet-name>
         <url-pattern>/PointUpdate</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>TrackCreateFromGpx</servlet-name>
+        <servlet-class>ru.pilot.tracks.gpx.TrackCreateFromGpx</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TrackCreateFromGpx</servlet-name>
+        <url-pattern>/TrackCreateFromGpx</url-pattern>
+    </servlet-mapping>
 </web-app>
